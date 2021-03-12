@@ -1,2 +1,2 @@
 # node-crud
-Projeto de CRUD em nodeJs da uc de sistemas distribuidos
+Atividade de implementação de livros em um CRUD Node para UC de sistemas distribuidos
