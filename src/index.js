@@ -1,4 +1,3 @@
-//importa os módulos http e express
 const http = require("http");
 
 const express = require("express");
@@ -12,62 +11,67 @@ app.set("port", porta);
 const server = http.createServer(app);
 server.listen(3000);
 
-let id = 2;
-let alunos = [
+let id = 1;
+let livros = [
     {
         id: 1,
-        nome: "João",
-        fone: "11223344",
-        email: "joao@email.com",
-    },
-    {
-        id: 2,
-        nome: "Maria",
-        fone: "55221133",
-        email: "maria@email.com",
+        isbn: "021349140",
+        titulo:"Sherlock Holmes",
+        descricao:"Quando uma série de assassinatos brutais aterroriza Londres, não demora muito para o lendário detetive Sherlock Holmes e seu parceiro solucionador de crimes",
+        edicao:"2",
+        autor:"Arthur Conan Doyle",
     },
 ];
 
-let alunos2 = [];
+let livros2 = [];
 
-app.post("/alunos", (req, res, next) => {
-    const aluno = {
+app.post("/livros", (req, res, next) => {
+    const livro = {
         id: (id += 1),
-        nome: req.body.nome,
-        fone: req.body.fone,
-        email: req.body.email,
+        isbn: req.body.isbn,
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        edicao: req.body.edicao,
+        autor: req.body.autor,
     };
-    alunos.push(aluno);
-    res.status(201).json(aluno);
+    livros.push(livro);
+    res.status(201).json(livro);
 });
 
-app.get("/alunos", (req, res, next) => {
-    res.status(200).json(alunos);
+app.get("/livros", (req, res, next) => {
+    res.status(200).json(livros);
 });
 
-app.put("/alunos", (req, res, next) => {
-    alunos.forEach((aluno) => {
-        if (aluno.id === req.body.id) {
-            aluno.nome = req.body.nome;
-            aluno.fone = req.body.fone;
-            aluno.email = req.body.email;
+app.put("/livros", (req, res, next) => {
+    livros.forEach((livro) => {
+        if (livro.id === req.body.id) {
+            livros.isbn = req.body.isbn
+            livro.titulo = req.body.titulo;
+            livro.descricao = req.body.descricao;
+            livro.edicao = req.body.edicao;
+            livro.autor = req.body.autor;
         }
     });
     res.status(204).end();
 });
 
-app.delete("/alunos", (req, res, next) => {
-    alunos.forEach((aluno) => {
-        if (aluno.id != req.body.id) {
-            const aluno2 = {
-                id: aluno.id,
-                nome: aluno.nome,
-                fone: aluno.fone,
-                email: aluno.email,
+app.delete("/livros", (req, res, next) => {
+    livros.forEach((livro) => {
+        if (livro.id != req.body.id) {
+            const livro2 = {
+                id: livro.id,
+                isbn: livro.isbn,
+                titulo: livro.titulo,
+                descricao: livro.descricao,
+                edicao: livro.edicao,
+                autor: livro.autor,
+                
+
             };
-            alunos2.push(aluno2);
+            livros2.push(livro2);
         }
     });
-    alunos = alunos2;
+    livros = livros2;
+    res.json(livros)
     res.status(204).end();
 });
